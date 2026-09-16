@@ -1,5 +1,6 @@
 const express = require("express");
 const path = require("node:path");
+const Router = require("./routes/Router")
 
 const app = express();
 
@@ -7,6 +8,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 app.use(express.urlencoded({extended: true}));
+
+app.use("/", Router);
 
 
 const PORT = process.env.PORT || 3000;

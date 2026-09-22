@@ -7,16 +7,22 @@ function getSignUpForm(req, res) {
 
 async function postSignUpForm(req, res, next) {
     console.log("hii");
-  try {
-    const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    await db.postSignUpForm(req.body, hashedPassword);
-    res.redirect("/users/login");
-  } catch (error) {
-    return next(error);
+    try {
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      await db.postSignUpForm(req.body, hashedPassword);
+      res.redirect("/users/login");
+    } catch (error) {
+      return next(error);
+    }
   }
+  
+function getLoginForm(req, res) {
+    console.log("hii login form");
+    res.render("login");
 }
 
 module.exports = {
   getSignUpForm,
   postSignUpForm,
+  getLoginForm,
 };

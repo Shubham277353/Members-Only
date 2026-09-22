@@ -10,8 +10,8 @@ app.set("view engine", "ejs");
 
 app.use(express.urlencoded({extended: true}));
 
-app.use("/", Router);
 app.use("/users", authRouter);
+app.use("/", Router);
 
 
 const PORT = process.env.PORT || 3000;

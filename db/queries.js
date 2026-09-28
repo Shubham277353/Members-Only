@@ -8,11 +8,13 @@ async function postSignUpForm(data, hashedPassword){
 }
 
 async function  getUsersByEmail(email) {
-    await pool.query(
+    const rows = await pool.query(
         `
         SELECT * FROM users WHERE email = $1
         `
-    , [email])   
+    , [email]);
+    
+    return rows[0];
 }
 
 async function getAllMessages(){

@@ -16,14 +16,13 @@ async function postSignUpForm(req, res, next) {
     try {
       const hashedPassword = await bcrypt.hash(data.password, 10);
       await db.postSignUpForm(data, hashedPassword);
-      res.redirect("/users/login");
+      res.redirect("/auth/login");
     } catch (error) {
       return next(error);
     }
   }
   
 function getLoginForm(req, res) {
-    console.log("hii login form");
     res.render("login");
 }
 
@@ -31,16 +30,9 @@ function getMembershipPage(req, res) {
     res.render("membership");
 }
 
-async function getHomePage(req, res){
-  const result = await db.getAllMessages();
-  console.log(result);
-  res.render("home", {messages: result});
-}
-
 module.exports = {
   getSignUpForm,
   postSignUpForm,
   getLoginForm,
   getMembershipPage,
-  getHomePage,
 };

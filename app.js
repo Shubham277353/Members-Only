@@ -2,6 +2,11 @@ const express = require("express");
 const path = require("node:path");
 const Router = require("./routes/Router");
 const authRouter = require("./routes/authRouter");
+const session = require("express-session");
+const pool = require("./db/pool");
+const pgSession = require("connect-pg-simple")(session);
+const passport = require("./passport-config");
+
 
 const app = express();
 
@@ -11,7 +16,20 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({extended: true}));
 app.use(express.static("public"));
 
-app.use("/users", authRouter);
+app.use(
+  session({
+    store: new pgSession({
+      pool: pool,
+      createTableIfMissing: true,
+    }),
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: false,
+  }),
+);
+app.use(passport.session());
+
+app.use("/auth", authRouter);
 app.use("/", Router);
 
 

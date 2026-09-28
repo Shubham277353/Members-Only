@@ -7,6 +7,15 @@ async function postSignUpForm(data, hashedPassword){
         `, [data.firstName, data.lastName, data.email, hashedPassword]);
 }
 
+async function  getUsersByEmail(email) {
+    await pool.query(
+        `
+        SELECT * FROM users WHERE email = $1
+        `
+    , [email])   
+}
+
 module.exports = {
     postSignUpForm,
+    getUsersByEmail
 }

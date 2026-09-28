@@ -27,8 +27,13 @@ function getLoginForm(req, res) {
     res.render("login");
 }
 
+function getMembershipPage(req, res) {
+    res.render("membership");
+}
+
 module.exports = {
   getSignUpForm,
   postSignUpForm,
   getLoginForm,
+  getMembershipPage,
 };

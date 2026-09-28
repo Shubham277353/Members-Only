@@ -31,9 +31,16 @@ function getMembershipPage(req, res) {
     res.render("membership");
 }
 
+async function getHomePage(req, res){
+  const result = await db.getAllMessages();
+  console.log(result);
+  res.render("home", {messages: result});
+}
+
 module.exports = {
   getSignUpForm,
   postSignUpForm,
   getLoginForm,
   getMembershipPage,
+  getHomePage,
 };

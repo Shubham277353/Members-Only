@@ -15,7 +15,18 @@ async function  getUsersByEmail(email) {
     , [email])   
 }
 
+async function getAllMessages(){
+    const result = await pool.query(
+        `
+        SELECT * FROM messages
+        `
+    );
+
+    return result.rows;
+}
+
 module.exports = {
     postSignUpForm,
-    getUsersByEmail
+    getUsersByEmail,
+    getAllMessages,
 }

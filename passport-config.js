@@ -4,23 +4,35 @@ const bcrypt = require("bcryptjs");
 const db = require("./db/queries");
 
 passport.use(
-  new localStrategy(async (email, password, done) => {
-    try {
-      const user = await db.getUsersByEmail(email);
+  new localStrategy(
+    { usernameField: 'email' },
+    async (email, password, done) => {
+      try {
 
-      if (!user) {
-        return done(null, false, { message: "Invalid username or password!" });
-      }
-      const match = bcrypt.compare(user.password, password);
+        const user = await db.getUsersByEmail(email);
 
-      if (!match) {
-        return done(null, false, { message: "Invalid username or password!" });
+        console.log(
+          `Email recieved is ${email}, Password is ${password}`
+        );
+        if (!user) {
+          return done(null, false, {
+            message: "Invalid username or password!",
+          });
+        }
+        const match = await bcrypt.compare(password, user.password);
+        console.log(match);
+        
+        if (!match) {
+          return done(null, false, {
+            message: "Invalid username or password!",
+          });
+        }
+        return done(null, user);
+      } catch (error) {
+        return done(error);
       }
-      return done(null, user);
-    } catch (error) {
-      return done(error);
-    }
-  }),
+    },
+  ),
 );
 
 passport.serializeUser((user, done) => {

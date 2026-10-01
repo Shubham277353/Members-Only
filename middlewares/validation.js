@@ -2,7 +2,7 @@ const { body } = require("express-validator");
 const db = require("../db/queries");
 
 
-const formValidator = [
+const signUpValidator = [
     body("firstName")
         .trim()
         .notEmpty()
@@ -38,4 +38,22 @@ const formValidator = [
     }).withMessage("password does not match.")
 ];
 
-module.exports = formValidator;
+const loginValidator = [
+        body("email")
+        .trim()
+        .notEmpty()
+        .withMessage("Email can't be empty")
+        .isEmail()
+        .withMessage("Invalid email"),
+
+    body("password")
+        .notEmpty()
+        .withMessage("Password can't be empty")
+        .isLength({ min: 8, max: 100 })
+        .withMessage("Password must be at least 8 and max 100 characters"),
+]
+
+module.exports = {
+    signUpValidator,
+    loginValidator,
+};

@@ -2,6 +2,7 @@ const { Router } = require("express");
 const authController = require("../controllers/authController");
 const validator = require("../middlewares/validation");
 const passport = require("passport");
+const ensureAuthenticated = require("../middlewares/loginCheck");
 const authRouter = Router();
 
 authRouter.get("/sign-up", authController.getSignUpForm);
@@ -30,9 +31,14 @@ authRouter.get("/logout", (req, res, next) => {
   });
 });
 
-authRouter.get("/membership", authController.getMembershipPage);
+authRouter.get(
+  "/membership",
+  ensureAuthenticated,
+  authController.getMembershipPage,
+);
 authRouter.post(
   "/membership",
+  ensureAuthenticated,
   validator.membershipValidator,
   authController.postMembershipPage,
 );

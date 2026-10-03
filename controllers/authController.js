@@ -1,10 +1,11 @@
 const bcrypt = require("bcryptjs");
 const db = require("../db/queries");
 const { validationResult, matchedData } = require("express-validator");
-const { use } = require("passport");
+const messageRouter = require("../routes/messages");
 
-function getSignUpForm(req, res) {
-  res.render("signUp");
+async function getSignUpForm(req, res) {
+    const result = await db.getAllMessages();
+  res.render("signUp", { users: result, authenticatedUser: req.user});
 }
 
 async function postSignUpForm(req, res, next) {
@@ -22,16 +23,24 @@ async function postSignUpForm(req, res, next) {
   }
 }
 
-function getLoginForm(req, res) {
+async function getLoginForm(req, res) {
   const message = req.session.messages?.[0];
-  res.render("login",{message});
+  const result = await db.getAllMessages();
+  res.render("login",{message, users: result, authenticatedUser: req.user});
 }
 
-function getMembershipPage(req, res) {
-  res.render("membership");
+async function getMembershipPage(req, res) {
+  if(!req.isAuthenticated){
+    return res.status(404).render("error", {message: "user not logged in!"});
+  }
+  const result = await db.getAllMessages();
+  res.render("membership", { users: result, authenticatedUser: req.user});
 }
 
 async function postMembershipPage(req, res){
+    if(!req.isAuthenticated){
+    return res.status(404).render("error", {message: "user not logged in!"});
+  }
   console.log("Hii member sigining up...");
   const passcode = req.body.passcode;
   const userId = req.user.id;

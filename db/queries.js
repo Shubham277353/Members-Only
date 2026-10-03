@@ -19,7 +19,7 @@ async function  getUsersByEmail(email) {
 async function getAllMessages(){
     const result = await pool.query(
         `
-        SELECT *  FROM messages JOIN users ON messages.user_id = users.id WHERE messages.id = 1 ;
+        SELECT *  FROM messages JOIN users ON messages.user_id = users.id;
         `
     );
 
@@ -36,9 +36,19 @@ async function setMembershipStatus(id) {
     [id])   
 }
 
+async function postMessageForm(id, title, message) {
+    await pool.query(
+        `
+        INSERT INTO messages(user_id, title, message)
+        VALUES ($1, $2, $3)           
+        `
+    , [id, title, message]);
+}
+
 module.exports = {
     postSignUpForm,
     getUsersByEmail,
     getAllMessages,
     setMembershipStatus,
+    postMessageForm,
 }

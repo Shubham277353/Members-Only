@@ -10,10 +10,15 @@
     <nav class="flex justify-around ">
         <h2 class="text-3xl font-bold">Clubhouse Club</h2>
         <div class="flex justify-between">
+            <% if(isAuthenticated){ %>
+                <a href="/auth/membership">Become a Member</a>
+            <%} else {%>
             <ul class="flex list-none gap-4">
                 <li><a class="" href="/auth/login">Login</a></li>
                 <li><a href="/auth/sign-up">Sign up</a></li>
             </ul>
+            <%}%>
+
         </div>
     </nav>
     <main>

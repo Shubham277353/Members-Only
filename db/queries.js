@@ -20,14 +20,26 @@ async function getAllMessages(){
     const result = await pool.query(
         `
         SELECT * FROM messages
+
         `
     );
 
     return result.rows;
 }
 
+async function setMembershipStatus(id) {
+    await pool.query(
+        `
+        UPDATE users
+        SET membership_status = TRUE
+        WHERE id = $1
+        `,
+    [id])   
+}
+
 module.exports = {
     postSignUpForm,
     getUsersByEmail,
     getAllMessages,
+    setMembershipStatus,
 }

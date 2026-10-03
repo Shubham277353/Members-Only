@@ -10,11 +10,12 @@ authRouter.get("/login", authController.getLoginForm );
 authRouter.post("/login", validator.loginValidator,
     passport.authenticate("local",{
         successRedirect: "/",
-        failureRedirect: "/",
+        failureRedirect: "/auth/login",
         failureMessage: true,
     })
 );
 
 authRouter.get("/membership", authController.getMembershipPage )
+authRouter.post("/membership", validator.membershipValidator, authController.postMembershipPage);
 
 module.exports = authRouter;

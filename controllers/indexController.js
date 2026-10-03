@@ -8,7 +8,7 @@ async function getHomePage(req, res) {
   }
   console.log("Error Message: ", messages);
   const result = await db.getAllMessages();
-  res.render("home", { messages: result });
+  res.render("home", { messages: result, isAuthenticated: req.isAuthenticated()});
 }
 
 module.exports = {

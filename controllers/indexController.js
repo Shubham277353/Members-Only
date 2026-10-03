@@ -1,3 +1,4 @@
+const { authenticate } = require("passport");
 const db = require("../db/queries");
 
 async function getHomePage(req, res) {
@@ -8,7 +9,7 @@ async function getHomePage(req, res) {
   }
   console.log("Error Message: ", messages);
   const result = await db.getAllMessages();
-  res.render("home", { messages: result, isAuthenticated: req.isAuthenticated()});
+  res.render("home", { users: result, authenticatedUser: req.user});
 }
 
 module.exports = {

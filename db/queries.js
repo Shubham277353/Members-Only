@@ -19,8 +19,7 @@ async function  getUsersByEmail(email) {
 async function getAllMessages(){
     const result = await pool.query(
         `
-        SELECT * FROM messages
-
+        SELECT *  FROM messages JOIN users ON messages.user_id = users.id WHERE messages.id = 1 ;
         `
     );
 

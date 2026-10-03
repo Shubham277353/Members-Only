@@ -7,7 +7,7 @@ async function getHomePage(req, res) {
   if (req.session.messages) {
     req.session.messages = [];
   }
-  console.log("Error Message: ", messages);
+  console.log("Error Message: ", latestMessage);
   const result = await db.getAllMessages();
   res.render("home", { users: result, authenticatedUser: req.user});
 }

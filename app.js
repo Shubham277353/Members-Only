@@ -6,6 +6,7 @@ const session = require("express-session");
 const pool = require("./db/pool");
 const pgSession = require("connect-pg-simple")(session);
 const passport = require("./passport-config");
+const messageRouter = require("./routes/messages");
 
 
 const app = express();
@@ -29,6 +30,7 @@ app.use(
 );
 app.use(passport.session());
 
+app.use("/messages", messageRouter);
 app.use("/auth", authRouter);
 app.use("/", Router);
 

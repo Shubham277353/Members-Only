@@ -3,18 +3,20 @@ const authController = require("../controllers/authController");
 const validator = require("../middlewares/validation");
 const passport = require("passport");
 const ensureAuthenticated = require("../middlewares/loginCheck");
+const validationHandler = require("../middlewares/handleValidationErrors");
 const authRouter = Router();
 
 authRouter.get("/sign-up", authController.getSignUpForm);
 authRouter.post(
   "/sign-up",
   validator.signUpValidator,
+  validationHandler,
   authController.postSignUpForm,
 );
 authRouter.get("/login", authController.getLoginForm);
 authRouter.post(
   "/login",
-  validator.loginValidator,
+  validator.loginValidator, validationHandler,
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/auth/login",
@@ -40,6 +42,7 @@ authRouter.post(
   "/membership",
   ensureAuthenticated,
   validator.membershipValidator,
+  validationHandler,
   authController.postMembershipPage,
 );
 

@@ -17,7 +17,7 @@ messageRouter.post(
   ensureAuthenticated,
   ensureMembership,
   validator.newFormValidator,
-  validationHandler,
+  validationHandler("createNewForm"),
   messageController.postNewMessageForm,
 );
 

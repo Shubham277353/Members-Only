@@ -66,14 +66,14 @@ const newFormValidator = [
 body('title')
     .trim()
     .notEmpty()
-    .withMessage("Title can't be empty")
+    .withMessage("Please enter a valid title.")
     .isLength({ min: 5, max: 100 })
     .withMessage('Title must be between 5 and 100 characters long.'),
 
   body('message')
     .trim()
     .notEmpty()
-    .withMessage("Message can't be empty")
+    .withMessage("Please enter a valid message.")
     .isLength({ min: 20, max: 1000 })
     .withMessage('Message must be at least 20 and maximum 1000 characters long.'),
 ];

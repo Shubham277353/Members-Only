@@ -1,16 +1,19 @@
 const { validationResult } = require("express-validator");
 
-function validationHandler(req, res, next) {
-  const errors = validationResult(req);
-  const path = req.path;
+function validationHandler(view) {
+  return (req, res, next) => {
+    const errors = validationResult(req);
 
-  if (errors.isEmpty()) {
-    return next();
-  }
+    if (errors.isEmpty()) {
+      return next();
+    }
 
-  res.status(400).redirect(`${path}`,{
-    errors: errors.array(),
-  });
+    return res.status(400).render(view, {
+      errors: errors.mapped(),
+      data: req.body,
+      authenticatedUser: req.user,
+    });
+  };
 }
 
 module.exports = validationHandler;

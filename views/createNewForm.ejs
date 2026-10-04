@@ -1,19 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New</title>
 </head>
+
 <body>
     <%- include('./partials/navbar') %>
-    <h1>Create a new message</h1>
-    <form action="/messages/create_new" method="post">
-        <label for="title">Title: </label>
-        <input type="text" id="title" name="title" required>
-        <label for="message">Message: </label>
-        <textarea name="message" id="message" placeholder="enter your message here" maxlength="1000" rows="6" cols="60" required></textarea>
-        <button type="submit">Create</button>
-    </form>
+        <h1>Create a new message</h1>
+        <form action="/messages/create_new" method="post">
+            <label for="title">Title: </label>
+            <input type="text" id="title" name="title" value="<%= typeof data != 'undefined' ? data.title : '' %>" required>
+
+            <% if (typeof errors !=='undefined' && errors.title) { %>
+                <span class="text-red-500 block text-sm mt-4">
+                    <%= errors.title.msg %>
+                </span>
+            <% } %>
+
+            <label for="message">Message: </label>
+            <textarea name="message" id="message" placeholder="enter your message here" maxlength="1000"
+                        rows="6" cols="60" required><%= typeof data !== 'undefined' ? data.message : '' %></textarea>
+            <% if (typeof errors !== 'undefined' && errors.message) { %>
+                <span class="text-red-500 block text-sm mt-4">
+                <%= errors.message.msg %>
+                </span>
+            <% } %>
+            <button type="submit">Create</button>
+        </form>
 </body>
+
 </html>

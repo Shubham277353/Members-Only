@@ -9,7 +9,6 @@ async function getHomePage(req, res) {
   }
   console.log("Error Message: ", latestMessage);
   const result = await db.getAllMessages();
-  console.log(result);
   res.render("home", { users: result, authenticatedUser: req.user});
 }
 

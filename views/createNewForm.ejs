@@ -5,31 +5,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create New</title>
+    <link href="/css/output.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="min-h-screen bg-slate-100 text-slate-900">
+
     <%- include('./partials/navbar') %>
-        <h1>Create a new message</h1>
-        <form action="/messages/create_new" method="post">
-            <label for="title">Title: </label>
-            <input type="text" id="title" name="title" value="<%= typeof data != 'undefined' ? data.title : '' %>" required>
 
-            <% if (typeof errors !=='undefined' && errors.title) { %>
-                <span class="text-red-500 block text-sm mt-4">
-                    <%= errors.title.msg %>
-                </span>
-            <% } %>
+    <main class="mx-auto flex max-w-3xl justify-center px-4 py-12 sm:px-6">
 
-            <label for="message">Message: </label>
-            <textarea name="message" id="message" placeholder="enter your message here" maxlength="1000"
-                        rows="6" cols="60" required><%= typeof data !== 'undefined' ? data.message : '' %></textarea>
-            <% if (typeof errors !== 'undefined' && errors.message) { %>
-                <span class="text-red-500 block text-sm mt-4">
-                <%= errors.message.msg %>
-                </span>
-            <% } %>
-            <button type="submit">Create</button>
-        </form>
+        <div class="w-full rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold tracking-tight text-slate-900">
+                    Create a new message
+                </h1>
+
+                <p class="mt-2 text-sm text-slate-500">
+                    Share something with the members of the Clubhouse.
+                </p>
+            </div>
+
+            <form action="/messages/create_new" method="post" class="space-y-6">
+
+                <div>
+                    <label
+                        for="title"
+                        class="mb-2 block text-sm font-medium text-slate-700"
+                    >
+                        Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        value="<%= typeof data != 'undefined' ? data.title : '' %>"
+                        required
+                        class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+                    >
+
+                    <% if (typeof errors !=='undefined' && errors.title) { %>
+
+                        <span class="mt-2 block text-sm text-red-600">
+                            <%= errors.title.msg %>
+                        </span>
+
+                    <% } %>
+                </div>
+
+                <div>
+                    <label
+                        for="message"
+                        class="mb-2 block text-sm font-medium text-slate-700"
+                    >
+                        Message
+                    </label>
+
+                    <textarea
+                        name="message"
+                        id="message"
+                        placeholder="Enter your message here"
+                        maxlength="1000"
+                        rows="6"
+                        required
+                        class="w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
+                    ><%= typeof data !== 'undefined' ? data.message : '' %></textarea>
+
+                    <% if (typeof errors !== 'undefined' && errors.message) { %>
+
+                        <span class="mt-2 block text-sm text-red-600">
+                            <%= errors.message.msg %>
+                        </span>
+
+                    <% } %>
+                </div>
+
+                <div class="flex justify-end border-t border-slate-100 pt-6">
+
+                    <button
+                        type="submit"
+                        class="rounded-lg bg-slate-900 px-6 py-2.5 text-sm font-semibold text-white transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2"
+                    >
+                        Create
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </main>
+
 </body>
-
 </html>

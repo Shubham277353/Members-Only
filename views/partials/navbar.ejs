@@ -1,31 +1,91 @@
-<head>
-    <link href="/css/output.css" rel="stylesheet">
-</head>
-
-<nav>
-    <div class="flex justify-around p-4 gap-16 items-center bg-slate-400">
-        <a href="/">
-            <h2 class="text-3xl font-bold">Clubhouse Club</h2>
+<nav class="bg-slate-800 text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <a href="/" class="group">
+            <h2 class="text-2xl md:text-3xl font-bold tracking-tight
+                       group-hover:text-slate-300 transition-colors duration-200">
+                Clubhouse Club
+            </h2>
         </a>
-        <div class="flex justify-between">
+        <div>
             <% if (authenticatedUser) { %>
-                <div class="flex gap-6">
+
+                <div class="flex items-center gap-3">
+
                     <% if (!authenticatedUser.membership_status) { %>
-                        <a href="/auth/membership">Become a Member</a>
-                    <% } else{%>
-                            <a href="/messages/create_new">Create Message</a>
-                            <% if (!authenticatedUser.isadmin) { %>
-                                <a href="/auth/admin">Admin</a>
-                            <% } %>
+
+                        <a
+                            href="/auth/membership"
+                            class="px-4 py-2 rounded-lg font-medium
+                                   bg-indigo-500 hover:bg-indigo-400
+                                   transition-colors duration-200"
+                        >
+                            Become a Member
+                        </a>
+
+                    <% } else { %>
+
+                        <a
+                            href="/messages/create_new"
+                            class="px-4 py-2 rounded-lg font-medium hover:bg-slate-700 transition-colors duration-200"
+                        >
+                            Create Message
+                        </a>
+
+                        <% if (!authenticatedUser.isadmin) { %>
+
+                            <a
+                                href="/auth/admin"
+                                class="px-4 py-2 rounded-lg font-medium
+                                       hover:bg-slate-700
+                                       transition-colors duration-200"
+                            >
+                                Admin
+                            </a>
+
+                        <% } %>
+
                     <% } %>
-                    <a href="/auth/logout">Logout</a>
+
+                    <a
+                        href="/auth/logout"
+                        class="px-4 py-2 rounded-lg font-medium
+                               text-slate-300 hover:text-white
+                               hover:bg-red-500/20
+                               transition-colors duration-200"
+                    >
+                        Logout
+                    </a>
+
                 </div>
-                <% } else { %>
-                    <ul class="flex list-none gap-4 text-xl">
-                        <li><a href="/auth/login">Login</a></li>
-                        <li><a href="/auth/sign-up">Sign up</a></li>
-                    </ul>
-                <% } %>
+
+            <% } else { %>
+
+                <ul class="flex items-center gap-2">
+                    <li>
+                        <a
+                            href="/auth/login"
+                            class="px-4 py-2 rounded-lg font-medium
+                                   hover:bg-slate-700
+                                   transition-colors duration-200"
+                        >
+                            Login
+                        </a>
+                    </li>
+
+                    <li>
+                        <a
+                            href="/auth/sign-up"
+                            class="px-4 py-2 rounded-lg font-medium
+                                   bg-indigo-500 hover:bg-indigo-400
+                                   transition-colors duration-200"
+                        >
+                            Sign up
+                        </a>
+                    </li>
+                </ul>
+
+            <% } %>
         </div>
+
     </div>
 </nav>

@@ -26,7 +26,7 @@ async function main() {
   console.log("Initializing database...");
 
   const client = new Client({
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.argv[2],
   });
 
   await client.connect();

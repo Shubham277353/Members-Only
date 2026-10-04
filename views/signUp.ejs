@@ -42,9 +42,15 @@
                             id="firstName"
                             name="firstName"
                             placeholder="John"
+                            value="<%= typeof data != 'undefined' ? data.firstName : '' %>"
                             required
                             class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                         >
+                        <% if (typeof errors !=='undefined' && errors.firstName) { %>
+                            <span class="mt-2 block text-sm text-red-600">
+                                <%= errors.firstName.msg %>
+                            </span>
+                        <% } %>
                     </div>
 
                     <div>
@@ -60,9 +66,15 @@
                             id="lastName"
                             name="lastName"
                             placeholder="Doe"
+                            value="<%= typeof data != 'undefined' ? data.lastName : '' %>"
                             required
                             class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                         >
+                                                <% if (typeof errors !=='undefined' && errors.lastName) { %>
+                            <span class="mt-2 block text-sm text-red-600">
+                                <%= errors.lastName.msg %>
+                            </span>
+                        <% } %>
                     </div>
 
                 </div>
@@ -80,9 +92,15 @@
                         id="email"
                         name="email"
                         placeholder="johndoe@example.com"
+                        value="<%= typeof data != 'undefined' ? data.email : '' %>"
                         required
                         class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                     >
+                                                <% if (typeof errors !=='undefined' && errors.email) { %>
+                            <span class="mt-2 block text-sm text-red-600">
+                                <%= errors.email.msg %>
+                            </span>
+                        <% } %>
                 </div>
 
                 <div>
@@ -100,6 +118,11 @@
                         required
                         class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                     >
+                                                <% if (typeof errors !=='undefined' && errors.password) { %>
+                            <span class="mt-2 block text-sm text-red-600">
+                                <%= errors.password.msg %>
+                            </span>
+                        <% } %>
                 </div>
 
                 <div>
@@ -117,6 +140,11 @@
                         required
                         class="w-full rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-500 focus:ring-2 focus:ring-slate-200"
                     >
+                                                                    <% if (typeof errors !=='undefined' && errors.confirmPassword) { %>
+                            <span class="mt-2 block text-sm text-red-600">
+                                <%= errors.confirmPassword.msg %>
+                            </span>
+                        <% } %>
                 </div>
 
                 <button

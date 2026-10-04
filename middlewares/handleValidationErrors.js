@@ -7,8 +7,8 @@ function validationHandler(view) {
     if (errors.isEmpty()) {
       return next();
     }
-
-    return res.status(400).render(view, {
+    console.log("validation handler here");
+    return res.render(view, {
       errors: errors.mapped(),
       data: req.body,
       authenticatedUser: req.user,

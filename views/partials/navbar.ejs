@@ -4,23 +4,28 @@
 
 <nav>
     <div class="flex justify-around p-4 gap-16 items-center bg-slate-400">
-        <h2 class="text-3xl font-bold">Clubhouse Club</h2>
+        <a href="/">
+            <h2 class="text-3xl font-bold">Clubhouse Club</h2>
+        </a>
         <div class="flex justify-between">
             <% if (authenticatedUser) { %>
                 <div class="flex gap-6">
                     <% if (!authenticatedUser.membership_status) { %>
                         <a href="/auth/membership">Become a Member</a>
-                        <% } else{%>
+                    <% } else{%>
                             <a href="/messages/create_new">Create Message</a>
+                            <% if (!authenticatedUser.isadmin) { %>
+                                <a href="/auth/admin">Admin</a>
                             <% } %>
-                                <a href="/auth/logout">Logout</a>
+                    <% } %>
+                    <a href="/auth/logout">Logout</a>
                 </div>
                 <% } else { %>
                     <ul class="flex list-none gap-4 text-xl">
                         <li><a href="/auth/login">Login</a></li>
                         <li><a href="/auth/sign-up">Sign up</a></li>
                     </ul>
-                    <% } %>
+                <% } %>
         </div>
     </div>
 </nav>

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body>
+    <%- include('./partials/navbar') %>
+       
+    <h3>Want to become an admin of our club ?</h3>
+    <p>Enter the Super Secret club passcode: </p>
+    <Form method="post" action="/auth/admin">
+        <input type="password" name="adminPasscode" placeholder="Enter passcode">
+        <button type="submit">Submit</button>
+    </Form>
+    
+</body>
+</html>

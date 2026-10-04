@@ -4,19 +4,23 @@ const validator = require("../middlewares/validation");
 const passport = require("passport");
 const ensureAuthenticated = require("../middlewares/loginCheck");
 const validationHandler = require("../middlewares/handleValidationErrors");
+const ensureMembership = require("../middlewares/memberCheck");
+const ensureAdmin = require("../middlewares/adminCheck");
 const authRouter = Router();
 
 authRouter.get("/sign-up", authController.getSignUpForm);
 authRouter.post(
   "/sign-up",
   validator.signUpValidator,
-  validationHandler,
+  validationHandler("signUp"),
   authController.postSignUpForm,
 );
 authRouter.get("/login", authController.getLoginForm);
+
 authRouter.post(
   "/login",
-  validator.loginValidator, validationHandler,
+  validator.loginValidator,
+  validationHandler("login"),
   passport.authenticate("local", {
     successRedirect: "/",
     failureRedirect: "/auth/login",
@@ -41,9 +45,24 @@ authRouter.get(
 authRouter.post(
   "/membership",
   ensureAuthenticated,
-  validator.membershipValidator,
-  validationHandler,
+  validator.passcodeValidator,
   authController.postMembershipPage,
 );
+
+authRouter.get(
+  "/admin",
+  ensureAuthenticated,
+  ensureMembership,
+  authController.getAdminForm,
+);
+authRouter.post(
+  "/admin",
+  ensureAuthenticated,
+  ensureMembership,
+  validator.passcodeValidator,
+  authController.postAdminForm,
+);
+
+authRouter.post("/admin/delete/:id", ensureAdmin, authController.deleteMessage)
 
 module.exports = authRouter;

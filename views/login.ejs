@@ -13,7 +13,7 @@
     <% } %>
     <form action="/auth/login" method="post">
         <label for="email">Email:</label>
-        <input class="border-2" type="email" id="email" name="email" placeholder="johndoe@example.com" required>
+        <input class="border-2" type="email" id="email" name="email" placeholder="johndoe@example.com" value="<%= typeof data != 'undefined' ? data.email : '' %>" required>
         <label for="password">Password:</label>
         <input class="border-2" type="password" id="password" name="password" required>
         <button type="submit">Login</button> 

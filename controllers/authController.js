@@ -30,9 +30,6 @@ async function getLoginForm(req, res) {
 }
 
 async function getMembershipPage(req, res) {
-  if(!req.isAuthenticated){
-    return res.status(404).render("error", {message: "user not logged in!"});
-  }
   const result = await db.getAllMessages();
   res.render("membership", { users: result, authenticatedUser: req.user});
 }
@@ -45,12 +42,36 @@ async function postMembershipPage(req, res){
   const passcode = req.body.passcode;
   const userId = req.user.id;
   console.log(req.user);
-  if(passcode == process.env.MEMBERSHIP_PASSCODE){
+  if(passcode === process.env.MEMBERSHIP_PASSCODE){
     await db.setMembershipStatus(userId);
     res.redirect("/");
   } else{
-    res.redirect("/error")
+    res.redirect("/error");
   }
+}
+
+function getAdminForm(req, res){
+  res.render("admin", {authenticatedUser: req.user});
+}
+
+async function postAdminForm(req, res) {
+  const passcode = req.body.adminPasscode;
+  if(passcode === process.env.ADMIN_CODE){
+    await db.setAdminStatus(req.user.id);
+    res.redirect("/");
+  }else{
+    res.redirect("/auth/admin");
+  }
+}
+
+async function  deleteMessage(req, res) {
+  const messageId = req.params.id;
+  console.log("message id :" ,messageId);
+  if(!messageId){
+    return res.status(404).json({errors: errors.array()});
+  }
+  await db.deleteMessage(messageId);
+  res.redirect("/");
 }
 
 module.exports = {
@@ -59,4 +80,7 @@ module.exports = {
   getLoginForm,
   getMembershipPage,
   postMembershipPage,
+  getAdminForm,
+  postAdminForm,
+  deleteMessage
 };

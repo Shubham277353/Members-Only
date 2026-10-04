@@ -52,7 +52,7 @@ const loginValidator = [
  ,
 ];
 
-const membershipValidator = [
+const passcodeValidator = [
   body("passcode")
     .trim()
     .notEmpty()
@@ -81,6 +81,6 @@ body('title')
 module.exports = {
   signUpValidator,
   loginValidator,
-  membershipValidator,
+  passcodeValidator,
   newFormValidator,
 };
